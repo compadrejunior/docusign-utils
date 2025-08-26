@@ -21,6 +21,8 @@ pnpm-debug.log*
 
 # DocuSign private key
 private.key
+private_pkcs8.key
+public.key
 
 # Jest coverage
 coverage/

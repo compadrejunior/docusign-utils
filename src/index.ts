@@ -1,6 +1,9 @@
+import dotenv from 'dotenv';
 import express, { Request, Response, Router } from 'express';
 import axios from 'axios';
 import { getDocuSignAccessToken } from './docusign-jwt';
+
+dotenv.config();
 
 const app = express();
 const route = Router();
@@ -17,7 +20,11 @@ route.get('/jwt-token', async (req: Request, res: Response) => {
     const tokenData = await getDocuSignAccessToken();
     res.json(tokenData);
   } catch (error: any) {
-    res.status(500).json({ error });
+    if (error.message) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error });
+    }
   }
 });
 
@@ -31,7 +38,7 @@ route.get('/ds/code', async (req: Request, res: Response) => {
     params: {
       response_type: 'code',
       scope: 'signature impersonation',
-      client_id: '9774f032-f3de-4b38-9c98-7761e0435895',
+      client_id: process.env.CLIENT_ID,
       redirect_uri: 'http://localhost:8080/ds/callback',
     },
   });

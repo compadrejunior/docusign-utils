@@ -1,6 +1,6 @@
-# Node.js TypeScript Boilerplate
+# DocuSign eSignature API utils
 
-This is a boilerplate project for building Node.js applications using TypeScript, Express, and Jest. It provides a basic folder structure and configuration files to help you get started quickly.
+This app creates a TypeScript server for interacting with the DocuSign eSignature API.
 
 ## Features
 
@@ -16,8 +16,24 @@ This is a boilerplate project for building Node.js applications using TypeScript
 3. Start the development server
 
 ```bash
-git clone https://github.com/your-username/node-typescript-boilerplate.git
-cd node-typescript-boilerplate
+git clone https://github.com/your-username/docusign-utils.git
+cd docusign-utils
 pnpm install
 pnpm dev
 ```
+
+## Endpoints
+
+### GET /ds/code
+Get the DocuSign eSignature API consent code.
+
+This endpoint initiates the OAuth2 authorization flow by redirecting the user to the DocuSign login page. Upon successful login, the user is redirected back to your application with a consent code.
+
+### GET /ds/callback
+The callback endpoint is called by DocuSign after the user has logged in and consented to the application. It receives the consent code and exchanges it for an access token.
+
+### GET /jwt-token
+
+Get the JSON Web Token (JWT) for accessing the DocuSign eSignature API.
+
+This endpoint exchanges the access token for a JWT, which can be used to authenticate API requests.
